@@ -19,9 +19,13 @@ class App extends Component {
       this.setState({ users: data }) 
      })
   }
+
   render() {
     return (
       <div className="container">
+      <button onClick={this.handleClick}>
+        GET DATAS
+      </button>
       <div className="col-xs-8">
       <h1>React Axios Example</h1>
       {this.state.users.map((user) => (
@@ -34,10 +38,7 @@ class App extends Component {
           </div>
         </div>
       ))}
-      </div>
-      <button onClick={this.handleClick}>
-        Click me
-      </button>
+      </div> 
      </div>
     );
   }
