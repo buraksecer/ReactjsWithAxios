@@ -24,14 +24,26 @@ class App extends Component {
   handleChange = event => {
     this.setState({ id: event.target.value });
   }
-
+  handleAddChange = event => {
+    this.setState({ name: event.target.value });
+  }
   handleSubmit = event => {
     event.preventDefault();  
+    
     const url = `${API_URL}/users/${this.state.id}`;
     axios.get(url).then(response => response.data)
     .then((data) => { 
       this.setState({ user: data }) 
-     })
+     }) 
+ 
+     const user = {
+      name: this.state.name
+     }  
+     axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
   }
 
   render() {
@@ -39,12 +51,12 @@ class App extends Component {
       <div className="container">
 
          <form onSubmit={this.handleSubmit}>
-          <label>
+          <label> 
             Person ID:
             <input type="text" name="id" onChange={this.handleChange} />
           </label>
           <button type="submit">GET BY ID</button>
-        </form>
+        </form> 
         <label>
             Get All Persons: 
           </label>
@@ -52,6 +64,13 @@ class App extends Component {
         GET DATAS
       </button> 
 
+      <form onSubmit={this.handleSubmit}>
+          <label>
+            Person Name:
+            <input type="text" name="name" onChange={this.handleAddChange} />
+          </label>
+          <button type="submit">Add</button>
+        </form>
 
       <div className="col-xs-8">
       <h1>React Axios Example User List</h1>
